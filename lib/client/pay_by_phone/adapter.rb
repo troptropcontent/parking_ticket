@@ -61,6 +61,6 @@ class PayByPhone::Adapter
       'PAYBYPHONE_LICENSEPLATE'
       'PAYBYPHONE_ZIPCODE'
       'PAYBYPHONE_CARDNUMBER'
-    ].all { |required_environement_variable| ENV[required_environement_variable] }
+    ].all? { |required_environement_variable| ENV[required_environement_variable] }
   end
 end
