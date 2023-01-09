@@ -1,0 +1,10 @@
+{
+    "id": "https://consumer.paybyphoneapis.com/parking/accounts",
+    "$schema": "https://json-schema.org/draft-06/schema#",
+    "description": "A member",
+    "type": "object",
+      "required": ["memberId"],
+      "properties": {
+        "memberId": { "type": "string" }
+      }
+}

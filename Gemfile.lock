@@ -11,6 +11,9 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    json_matchers (0.11.1)
+      json_schema
+    json_schema (0.21.0)
     rake (13.0.6)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -33,6 +36,7 @@ PLATFORMS
 
 DEPENDENCIES
   faraday (~> 2.7, >= 2.7.2)
+  json_matchers
   parking_ticket!
   rake (~> 13.0)
   rspec (~> 3.0)

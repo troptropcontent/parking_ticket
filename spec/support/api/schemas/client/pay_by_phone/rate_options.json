@@ -1,0 +1,15 @@
+{
+    "id": "https://consumer.paybyphoneapis.com/parking/accounts",
+    "$schema": "https://json-schema.org/draft-06/schema#",
+    "description": "A list of rate_options",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "required": ["name", "type", "rateOptionId"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "rateOptionId": { "type": "string" }
+      }
+    }
+}

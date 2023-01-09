@@ -1,0 +1,25 @@
+{
+    "id": "https://consumer.paybyphoneapis.com/parking/accounts/account_id/sessions?periodType=Current",
+    "$schema": "https://json-schema.org/draft-06/schema#",
+    "description": "A list of running ticket for an account",
+    "type": "array",
+    "items": {
+      "description": "A ticket",
+      "type": "object",
+      "required": ["expireTime", "parkingSessionId", "startTime", "vehicle"],
+      "properties": {
+        "expireTime": { "type": "string" },
+        "parkingSessionId": {"type": "string"},
+        "startTime": {"type": "string"},
+        "vehicle": {
+          "type": "object",
+          "required": ["licensePlate", "id"],
+          "properties": {
+            "licensePlate": {"type": "string"},
+            "id": {"type": "integer"}
+          }
+        }
+
+      }
+    }
+}

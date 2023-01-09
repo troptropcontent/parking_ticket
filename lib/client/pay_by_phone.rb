@@ -1,44 +1,42 @@
 require 'faraday'
 class PayByPhone
-  def tickets
+  def tickets(account_id)
     connection.get("/parking/accounts/#{account_id}/sessions?periodType=Current").body
   end
 
-  def account_id
-    connection.get('/parking/accounts').body.dig(0, 'id')
+  def accounts
+    connection.get('/parking/accounts').body
   end
 
   def vehicles
     connection.get('/identity/profileservice/v1/members/vehicles/paybyphone').body
   end
 
-  def rate_options
-    connection.get('/parking/locations/75018/rateOptions',
+  def rate_options(account_id)
+    connection.get("/parking/locations/#{ENV['PAYBYPHONE_ZIPCODE']}/rateOptions",
                    {
                      parkingAccountId: account_id,
                      licensePlate: ENV['PAYBYPHONE_LICENSEPLATE']
                    }).body
   end
 
-  def quote
+  def quote(rate_option_id, account_id)
     connection.get(
       "/parking/accounts/#{account_id}/quote",
       {
         locationId: ENV['PAYBYPHONE_ZIPCODE'],
         licensePlate: ENV['PAYBYPHONE_LICENSEPLATE'],
-        stall: nil,
-        rateOptionId: '75101',
+        rateOptionId: rate_option_id,
         durationTimeUnit: 'Days',
         durationQuantity: 1,
         isParkUntil: false,
-        expireTime: nil,
         parkingAccountId: account_id
       }
     ).body
   end
 
-  def member_id
-    connection.get('/identity/profileservice/v1/members').body['memberId']
+  def member
+    connection.get('/identity/profileservice/v1/members').body
   end
 
   def payment_methods
