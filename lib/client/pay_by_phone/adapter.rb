@@ -1,5 +1,5 @@
 require_relative '../pay_by_phone'
-require_relative '../../parking_ticket/ticket'
+
 class PayByPhone::Adapter
   class Error < StandardError; end
 
@@ -17,14 +17,14 @@ class PayByPhone::Adapter
     end
     return unless ticket
 
-    Ticket.new({
-                 starts_on: DateTime.parse(ticket['startTime']),
-                 ends_on: DateTime.parse(ticket['expireTime']),
-                 license_plate: ticket.dig('vehicle', 'licensePlate'),
-                 cost: ticket.dig('segments', 0, 'cost'),
-                 client: 'PayByPhone',
-                 client_ticket_id: ticket['parkingSessionId']
-               })
+    {
+      starts_on: DateTime.parse(ticket['startTime']),
+      ends_on: DateTime.parse(ticket['expireTime']),
+      license_plate: ticket.dig('vehicle', 'licensePlate'),
+      cost: ticket.dig('segments', 0, 'cost'),
+      client: 'PayByPhone',
+      client_ticket_id: ticket['parkingSessionId']
+    }
   end
 
   def renew
