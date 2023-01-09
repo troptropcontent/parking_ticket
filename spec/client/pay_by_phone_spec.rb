@@ -46,5 +46,10 @@ RSpec.describe PayByPhone, type: :model do
         expect(subject.member).to match_json_schema('client/pay_by_phone/member')
       end
     end
+    context '#payment_methods' do
+      it 'returns the payment_methods registered for an account' do
+        expect(subject.payment_methods).to match_json_schema('client/pay_by_phone/payment_methods')
+      end
+    end
   end
 end

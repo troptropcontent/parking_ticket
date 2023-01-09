@@ -1,0 +1,20 @@
+{
+    "id": "https://consumer.paybyphoneapis.com/parking/accounts",
+    "$schema": "https://json-schema.org/draft-06/schema#",
+    "type": "object",
+    "required": ["items"],
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["id", "maskedCardNumber"],
+          "properties": {
+            "id": { "type": "string" },
+            "maskedCardNumber": { "type": "string" }
+          }
+        }
+      }
+    }
+    
+}
