@@ -8,8 +8,8 @@ module ParkingTicket
   class Error < StandardError; end
 
   def self.renew
-    if covered
-      puts '❌ Can not renew ticket as already covered'
+    if current_ticket
+      puts '❌ Can not renew ticket as already covered by a ticket at this time'
     else
       puts '🔄 Renewing ticket'
       adapter.renew
@@ -17,9 +17,9 @@ module ParkingTicket
     end
   end
 
-  def self.covered
-    puts '🕵️ Checking coverage'
-    adapter.covered?
+  def self.current_ticket
+    puts '🕵️ Retrieving current_ticket'
+    adapter.current_ticket
   end
 
   def self.adapter
