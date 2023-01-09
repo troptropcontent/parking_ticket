@@ -1,6 +1,8 @@
 require_relative '../pay_by_phone'
 require_relative '../../parking_ticket/ticket'
 class PayByPhone::Adapter
+  class Error < StandardError; end
+
   def initialize
     check_required_configuarion!
   end
@@ -64,6 +66,6 @@ class PayByPhone::Adapter
     ].all? { |required_environement_variable| ENV[required_environement_variable] }
 
     raise Error,
-          'The required configuation are not set properly, the followinf environnment variable must be set : PAYBYPHONE_PASSWORD, PAYBYPHONE_USERNAME, PAYBYPHONE_LICENSEPLATE, PAYBYPHONE_ZIPCODE, PAYBYPHONE_CARDNUMBER'
+          'The required configuation are not set properly, the following environnment variable must be set : PAYBYPHONE_PASSWORD, PAYBYPHONE_USERNAME, PAYBYPHONE_LICENSEPLATE, PAYBYPHONE_ZIPCODE, PAYBYPHONE_CARDNUMBER'
   end
 end
