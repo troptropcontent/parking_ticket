@@ -54,7 +54,7 @@ class PayByPhone::Adapter
     end['rateOptionId']
   end
 
-  def check_required_configuarion
+  def check_required_configuarion!
     raise unless %w[
       'PAYBYPHONE_PASSWORD'
       'PAYBYPHONE_USERNAME'
