@@ -12,8 +12,8 @@ class PayByPhone::Adapter
     return unless ticket
 
     Ticket.new({
-                 starts_on: Date.parse(ticket['startTime']),
-                 ends_on: Date.parse(ticket['expireTime']),
+                 starts_on: DateTime.parse(ticket['startTime']),
+                 ends_on: DateTime.parse(ticket['expireTime']),
                  license_plate: ticket.dig('vehicle', 'licensePlate'),
                  cost: ticket.dig('segments', 0, 'cost'),
                  client: 'PayByPhone',
