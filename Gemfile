@@ -11,6 +11,4 @@ gem 'rspec', '~> 3.0'
 
 gem 'faraday', '~> 2.7', '>= 2.7.2'
 
-gem 'sqlite3', '~> 1.3', '>= 1.3.11'
-
 gem 'json_matchers'

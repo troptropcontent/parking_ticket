@@ -1,6 +1,10 @@
 require_relative '../pay_by_phone'
 require_relative '../../parking_ticket/ticket'
 class PayByPhone::Adapter
+  def initialize
+    check_required_configuarion!
+  end
+
   def covered?
     !!current_ticket
   end
@@ -48,5 +52,15 @@ class PayByPhone::Adapter
     client.rate_options(account_id).find do |rate_option|
       rate_option['type'] == 'RES' && rate_option['licensePlate'] == ENV['PAYBYPHONE_LICENSEPLATE']
     end['rateOptionId']
+  end
+
+  def check_required_configuarion
+    raise unless %w[
+      'PAYBYPHONE_PASSWORD'
+      'PAYBYPHONE_USERNAME'
+      'PAYBYPHONE_LICENSEPLATE'
+      'PAYBYPHONE_ZIPCODE'
+      'PAYBYPHONE_CARDNUMBER'
+    ].all { |required_environement_variable| ENV[required_environement_variable] }
   end
 end
