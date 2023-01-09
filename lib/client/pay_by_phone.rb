@@ -35,7 +35,7 @@ class PayByPhone
             }
           }
         }
-      }
+      }.to_json
     ).body
   end
 
@@ -55,7 +55,7 @@ class PayByPhone
                    }).body
   end
 
-  def quote(rate_option_id, account_id)
+  def new_quote(rate_option_id, account_id)
     connection.get(
       "/parking/accounts/#{account_id}/quote",
       {

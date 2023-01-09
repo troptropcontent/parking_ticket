@@ -24,7 +24,7 @@ class PayByPhone::Adapter
   def renew
     return if covered?
 
-    quote = client.new_quote
+    quote = client.new_quote(rate_option_id, account_id)
     puts client.new_ticket(account_id, quote['parkingStartTime'], quote['quoteId'], payment_method_id)
   end
 
@@ -36,10 +36,6 @@ class PayByPhone::Adapter
 
   def account_id
     @account_id ||= client.accounts.dig(0, 'id')
-  end
-
-  def new_quote
-    client.quote(rate_option_id, account_id)
   end
 
   def payment_method_id
