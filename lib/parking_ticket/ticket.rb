@@ -1,4 +1,4 @@
-class Ticket
+class ParkingTicket::Ticket
   def initialize(attributes)
     @starts_on = attributes[:starts_on]
     @ends_on = attributes[:ends_on]
