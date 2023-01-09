@@ -55,12 +55,15 @@ class PayByPhone::Adapter
   end
 
   def check_required_configuarion!
-    raise unless %w[
-      'PAYBYPHONE_PASSWORD'
-      'PAYBYPHONE_USERNAME'
-      'PAYBYPHONE_LICENSEPLATE'
-      'PAYBYPHONE_ZIPCODE'
-      'PAYBYPHONE_CARDNUMBER'
+    return if %w[
+      PAYBYPHONE_PASSWORD
+      PAYBYPHONE_USERNAME
+      PAYBYPHONE_LICENSEPLATE
+      PAYBYPHONE_ZIPCODE
+      PAYBYPHONE_CARDNUMBER
     ].all? { |required_environement_variable| ENV[required_environement_variable] }
+
+    raise Error,
+          'The required configuation are not set properly, the followinf environnment variable must be set : PAYBYPHONE_PASSWORD, PAYBYPHONE_USERNAME, PAYBYPHONE_LICENSEPLATE, PAYBYPHONE_ZIPCODE, PAYBYPHONE_CARDNUMBER'
   end
 end
