@@ -4,6 +4,41 @@ class PayByPhone
     connection.get("/parking/accounts/#{account_id}/sessions?periodType=Current").body
   end
 
+  def new_ticket(account_id, parking_start_time, quote_id, payment_method_id)
+    connection.post(
+      "/parking/accounts/#{account_id}/sessions/",
+      {
+        "expireTime": nil,
+        "duration": {
+          "quantity": '1',
+          "timeUnit": 'days'
+        },
+        "licensePlate": ENV['PAYBYPHONE_LICENSEPLATE'],
+        "locationId": ENV['PAYBYPHONE_ZIPCODE'],
+        "rateOptionId": '75101',
+        "startTime": parking_start_time,
+        "quoteId": quote_id,
+        "parkingAccountId": account_id,
+        "paymentMethod": {
+          "paymentMethodType": 'PaymentAccount',
+          "payload": {
+            "paymentAccountId": payment_method_id,
+            "clientBrowserDetails": {
+              "browserAcceptHeader": 'text/html',
+              "browserColorDepth": '30',
+              "browserJavaEnabled": 'false',
+              "browserLanguage": 'fr-FR',
+              "browserScreenHeight": '900',
+              "browserScreenWidth": '1440',
+              "browserTimeZone": '-60',
+              "browserUserAgent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+            }
+          }
+        }
+      }
+    ).body
+  end
+
   def accounts
     connection.get('/parking/accounts').body
   end
