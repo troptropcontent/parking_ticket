@@ -56,6 +56,8 @@ end
 And play as often as you want to ensure that you always have a ticket for your car.
 (But this is very HTTP request consuming, a lot of wasted request will be performed, i am sure that you can do better than that.)
 
+Exemple of application : [parkautomat](https://github.com/troptropcontent/parkautomat)
+
 
 ## License
 
