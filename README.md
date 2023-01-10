@@ -33,10 +33,10 @@ To make the gem work above your parking account you need set some environment va
 
 Two methods comes with the gem : 
 
-#ParkingTicket.current_ticket
+#`ParkingTicket.current_ticket`
 => returns an object representing a currently running residential ticket for your car. It returns nil if no ticket are found.
 
-#ParkingTicket.renew
+#`ParkingTicket.renew`
 => register a new residential ticket for your car, this won't work if current_ticket returns something.
 
 Then you can create a scrypt like this one :
