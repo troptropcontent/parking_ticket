@@ -1,10 +1,27 @@
 # frozen_string_literal: true
 
-require_relative 'parking_ticket/version'
-require_relative 'client/pay_by_phone'
-require_relative 'client/pay_by_phone/adapter'
+require 'parking_ticket/configuration'
+require 'parking_ticket/version'
+require 'client/pay_by_phone'
+require 'client/pay_by_phone/adapter'
 
 module ParkingTicket
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
+  def self.configured?
+    self&.adapter&.ready?
+  end
+
   class Error < StandardError; end
 
   def self.renew
@@ -23,6 +40,6 @@ module ParkingTicket
   end
 
   def self.adapter
-    @@adapter ||= PayByPhone::Adapter.new
+    configuration.adapter
   end
 end
