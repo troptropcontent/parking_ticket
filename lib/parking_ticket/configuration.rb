@@ -22,7 +22,5 @@ module ParkingTicket
         raise Error, "Unhandled adapter : #{adapter_name}"
       end
     end
-
-    def 
   end
 end
