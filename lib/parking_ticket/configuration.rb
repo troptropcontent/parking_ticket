@@ -17,10 +17,12 @@ module ParkingTicket
       when 'pay_by_phone'
         @adapter = PayByPhone::Adapter
       when 'easy_park'
-        # to come
+        raise Error, "Adapter easy_park will be available in the next major realease : #{adapter_name}"
       else
         raise Error, "Unhandled adapter : #{adapter_name}"
       end
     end
+
+    def 
   end
 end
