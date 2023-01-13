@@ -17,10 +17,10 @@ jobs:
           bundler-cache: true
       - name: Run the default task
         env:
-        PARKING_TICKET_PASSWORD: ${{ secrets.PARKING_TICKET_PASSWORD }}
-        PARKING_TICKET_USERNAME: ${{ secrets.PARKING_TICKET_USERNAME }}
-        PARKING_TICKET_LICENSEPLATE: ${{ secrets.PARKING_TICKET_LICENSEPLATE }}
-        PARKING_TICKET_ZIPCODE: ${{ secrets.PARKING_TICKET_ZIPCODE }}
-        PARKING_TICKET_CARDNUMBER: ${{ secrets.PARKING_TICKET_CARDNUMBER }}
+          PARKING_TICKET_PASSWORD: ${{ secrets.PARKING_TICKET_PASSWORD }}
+          PARKING_TICKET_USERNAME: ${{ secrets.PARKING_TICKET_USERNAME }}
+          PARKING_TICKET_LICENSEPLATE: ${{ secrets.PARKING_TICKET_LICENSEPLATE }}
+          PARKING_TICKET_ZIPCODE: ${{ secrets.PARKING_TICKET_ZIPCODE }}
+          PARKING_TICKET_CARDNUMBER: ${{ secrets.PARKING_TICKET_CARDNUMBER }}
 
         run: bundle exec rake
