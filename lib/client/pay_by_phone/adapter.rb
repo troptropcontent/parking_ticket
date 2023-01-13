@@ -31,7 +31,7 @@ module ParkingTicket
           return if covered?
 
           quote = request.new_quote(rate_option_id, account_id)
-          puts request.new_ticket(account_id, quote['parkingStartTime'], quote['quoteId'], payment_method_id)
+          request.new_ticket(account_id, quote['parkingStartTime'], quote['quoteId'], payment_method_id)
         end
 
         private

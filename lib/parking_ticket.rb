@@ -18,6 +18,7 @@ module ParkingTicket
     def initialize(adapter_name, configuration_attributes)
       @adapter_name = adapter_name
       @configuration_attributes = configuration_attributes
+      @result = {}
     end
 
     def adapter
@@ -25,17 +26,10 @@ module ParkingTicket
     end
 
     def renew
-      if current_ticket
-        puts '❌ Can not renew ticket as already covered by a ticket at this time'
-      else
-        puts '🔄 Renewing ticket'
-        adapter.renew
-        puts '✅ Ticket renewed'
-      end
+      adapter.renew unless current_ticket
     end
 
     def current_ticket
-      puts '🕵️ Retrieving current_ticket'
       adapter.current_ticket
     end
 
