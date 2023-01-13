@@ -1,3 +1,4 @@
+![example workflow](https://github.com/troptropcontent/parking_ticket/actions/workflows/main.yml/badge.svg)
 # ParkingTicket
 
 This gem is a wrapper around the majors residential parking tickets api (for now only PayByPhone is supported).
