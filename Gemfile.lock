@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    parking_ticket (0.1.2)
+    parking_ticket (1.0.0)
       faraday
 
 GEM
