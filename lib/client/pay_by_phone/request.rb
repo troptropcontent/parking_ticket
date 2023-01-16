@@ -11,7 +11,7 @@ module ParkingTicket
           connection.get("/parking/accounts/#{account_id}/sessions?periodType=Current").body
         end
 
-        def new_ticket(_account_id, _parking_start_time, _quote_id, _payment_method_id)
+        def new_ticket(account_id, parking_start_time, quote_id, payment_method_id)
           connection.post(
             "/parking/accounts/#{account_id}/sessions/",
             {
