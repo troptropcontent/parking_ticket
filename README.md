@@ -1,3 +1,4 @@
+![example workflow](https://github.com/troptropcontent/parking_ticket/actions/workflows/main.yml/badge.svg)
 # ParkingTicket
 
 This gem is a wrapper around the majors residential parking tickets api (for now only PayByPhone is supported).
@@ -22,22 +23,45 @@ Or install it yourself as:
 
 To make the gem work above your parking account you need set some environment variables : 
 
-#PayByPhone : 
-- `PAYBYPHONE_PASSWORD` : your PayByPhone password
-- `PAYBYPHONE_USERNAME` : your PayByPhone username (usually your phone number)
-- `PAYBYPHONE_LICENSEPLATE` : tyhe license plate of the car that must be covered 
-- `PAYBYPHONE_ZIPCODE` : the zipcode you're resident in 
-- `PAYBYPHONE_CARDNUMBER` : the credit card used to pay parking tickets (must be formated as folow xxxxxx------xxxx)
+This give you access to a bunch of classes but the most important one is the ParkingTicket::Base. 
 
-#Other apis to come
+This class can be instanciated as follow : 
 
-Two methods comes with the gem : 
+```
+parking_ticket = ParkingTicket::Base.new(
+  'pay_by_phone',
+  {
+    username: your_pay_by_phone_username,
+    password: your_pay_by_phone_password,
+    license_plate: your_license_plate,
+    zipcode: the_zipcode_where_you_are_resident,
+    card_number: the_card_number_registered_on_pay_by_phone_you_want_to_use, # must be in the format : xxxxxx------xxxx
+  }
+)
+```
 
-#`ParkingTicket.current_ticket`
-=> returns an object representing a currently running residential ticket for your car. It returns nil if no ticket are found.
+Once instanciated and configured correctly (the methods won't work if the is a missing key in the confguration hash), you can use the two instance methods to do what you have to do : 
 
-#`ParkingTicket.renew`
-=> register a new residential ticket for your car, this won't work if current_ticket returns something.
+- #current_ticket
+This checks if a ticket is currently running for the license_plate. 
+Returns :
+```
+#if a ticket is found : 
+{
+  starts_on: 2023-01-11 15:40:22 UTC,
+  ends_on: 2023-01-18 15:40:22 UTC,
+  cost: 9.0,
+  license_plate: your_license_plate,
+  client: "PayByPhone",
+  client_ticket_id: the_id_returned_by_the_adapter,
+}
+
+#if no ticket is found
+nil
+```
+
+- #renew
+This will trigger the renewal of your ticket, works only if no current_ticket is found
 
 Then you can create a scrypt like this one :
 
@@ -45,7 +69,16 @@ Then you can create a scrypt like this one :
 #your_scrypt.rb
 require 'parking_ticket'
 
-ticket_client = ParkingTicket.new
+ticket_client = ParkingTicket::Base.new(
+  'pay_by_phone',
+  {
+    username: your_pay_by_phone_username,
+    password: your_pay_by_phone_password,
+    license_plate: your_license_plate,
+    zipcode: the_zipcode_where_you_are_resident,
+    card_number: the_card_number_registered_on_pay_by_phone_you_want_to_use, # must be in the format : xxxxxx------xxxx
+  }
+)
 
 unless ticket_client.current_ticket
   ticket_client.renew
@@ -53,7 +86,7 @@ end
 
 ```
 
-And play as often as you want to ensure that you always have a ticket for your car.
+And play it as often as you want to ensure that you always have a ticket for your car.
 (But this is very HTTP request consuming, a lot of wasted request will be performed, i am sure that you can do better than that.)
 
 Exemple of application : [parkautomat](https://github.com/troptropcontent/parkautomat)
