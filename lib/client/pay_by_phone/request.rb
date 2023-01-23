@@ -125,7 +125,7 @@ module ParkingTicket
         end
 
         def token
-          self.class.auth(@configuration.username, @configuration.password).body['access_token']
+          self.class.send(:auth, @configuration.username, @configuration.password).body['access_token']
         end
       end
     end
