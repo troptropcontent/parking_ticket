@@ -10,6 +10,15 @@ require 'client/pay_by_phone/request'
 
 module ParkingTicket
   class Base
+    class << self
+      def valid_credentials?(adapter_name, username, password)
+        adapter = Client::PayByPhone::Adapter if adapter_name == 'pay_by_phone'
+        raise Error, 'EasyPark will be handled in the next major release' if adapter_name == 'easy_park'
+        raise Error, "Unhandled adapter : #{adapter_name}" unless adapter
+
+        adapter.valid_credentials?(username, password)
+      end
+    end
     attr_reader :configuration
 
     class Error < StandardError

@@ -2,8 +2,18 @@ module ParkingTicket
   module Client
     module PayByPhone
       class Adapter
+        class << self
+          def valid_credentials?(username, password)
+            Request.valid_credentials?(username, password)
+          end
+        end
+
         def initialize(configuration)
           @configuration = configuration
+        end
+
+        def valid_credentials?(_username, _password)
+          request.valid_credentials?(_username, _password)
         end
 
         def covered?

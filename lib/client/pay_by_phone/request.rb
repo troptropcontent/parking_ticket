@@ -3,6 +3,33 @@ module ParkingTicket
   module Client
     module PayByPhone
       class Request
+        class << self
+          def valid_credentials?(username, password)
+            auth(username, password).status == 200
+          end
+
+          private
+
+          def auth(username, password)
+            conn = Faraday.new('https://auth.paybyphoneapis.com') do |f|
+              f.response :json
+            end
+            conn.post(
+              '/token',
+              URI.encode_www_form({
+                                    grant_type: 'password',
+                                    username: username,
+                                    password: password,
+                                    client_id: 'paybyphone_web'
+                                  }),
+              {
+                'Accept' => 'application/json, text/plain, */*',
+                'X-Pbp-ClientType' => 'WebApp'
+              }
+            )
+          end
+        end
+
         def initialize(configuration)
           @configuration = configuration
         end
@@ -98,22 +125,7 @@ module ParkingTicket
         end
 
         def token
-          conn = Faraday.new('https://auth.paybyphoneapis.com') do |f|
-            f.response :json
-          end
-          conn.post(
-            '/token',
-            URI.encode_www_form({
-                                  grant_type: 'password',
-                                  username: @configuration.username,
-                                  password: @configuration.password,
-                                  client_id: 'paybyphone_web'
-                                }),
-            {
-              'Accept' => 'application/json, text/plain, */*',
-              'X-Pbp-ClientType' => 'WebApp'
-            }
-          ).body['access_token']
+          self.class.auth(@configuration.username, @configuration.password).body['access_token']
         end
       end
     end
