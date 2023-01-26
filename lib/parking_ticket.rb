@@ -18,6 +18,26 @@ module ParkingTicket
 
         adapter.valid_credentials?(username, password)
       end
+
+      def config
+        yield(self)
+      end
+
+      attr_accessor :ticket_format
+
+      def format_ticket(ticket)
+        return unless ticket_format
+
+        ticket_format.each_with_object({}) do |element, acumulator|
+          if element.is_a?(Hash)
+            original_key = element.keys.first
+            target_key = element.values.first
+            acumulator[target_key] = ticket[original_key]
+          else
+            acumulator[element] = ticket[element]
+          end
+        end
+      end
     end
     attr_reader :configuration
 
@@ -39,7 +59,9 @@ module ParkingTicket
     end
 
     def current_ticket
-      adapter.current_ticket
+      ticket = adapter.current_ticket
+      self.class.format_ticket(ticket) if self.class.ticket_format
+      ticket
     end
 
     private
