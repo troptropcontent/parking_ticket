@@ -60,7 +60,7 @@ module ParkingTicket
 
     def current_ticket
       ticket = adapter.current_ticket
-      self.class.format_ticket(ticket) if self.class.ticket_format
+      ticket = self.class.format_ticket(ticket) if self.class.ticket_format
       ticket
     end
 
