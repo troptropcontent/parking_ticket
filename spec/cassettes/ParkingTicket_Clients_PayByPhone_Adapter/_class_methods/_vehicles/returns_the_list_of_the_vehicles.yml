@@ -1,0 +1,159 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_username&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:32:00 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676647920.269"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.163"
+        X-Time-Iso:
+          - "2023-02-17T15:32:00+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"fake_token","expires_in":1200,"refresh_token":"1rr7KzbZOKPqWSaST2QJg5isQYZpZLSPrQ0ZhdlpoBe","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 15:32:00 GMT
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_username&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:32:00 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676647920.930"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.183"
+        X-Time-Iso:
+          - "2023-02-17T15:32:00+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"fake_token","expires_in":1200,"refresh_token":"-w_fRw73rPG9YIcNDbfMH7KgXt1iPrWfefYOq_jgjOF","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 15:32:00 GMT
+  - request:
+      method: get
+      uri: https://consumer.paybyphoneapis.com/identity/profileservice/v1/members/vehicles/paybyphone
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Content-Type:
+          - application/json
+        Authorization:
+          - Bearer fake_token
+        User-Agent:
+          - Faraday v2.7.4
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:32:01 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.1
+        X-Request-Start:
+          - "1676647921.469"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.052"
+        X-Time-Iso:
+          - "2023-02-17T15:32:01+00:00"
+      body:
+        encoding: UTF-8
+        string: '[{"vehicleId":"fake_vehicle_id","legacyVehicleId":11111111,"licensePlate":"license_plate","country":"FR","type":"Car"}]'
+    recorded_at: Fri, 17 Feb 2023 15:32:01 GMT
+recorded_with: VCR 6.1.0

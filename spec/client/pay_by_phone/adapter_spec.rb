@@ -1,116 +1,94 @@
-module ParkingTicket::Client::PayByPhone
+module ParkingTicket::Clients::PayByPhone
   RSpec.describe Adapter do
-    let!(:config) do
-      ParkingTicket::Client::PayByPhone::Configuration.new do |configuration|
-        configuration.username = ENV['PARKING_TICKET_USERNAME']
-        configuration.password = ENV['PARKING_TICKET_PASSWORD']
-        configuration.zipcode = ENV['PARKING_TICKET_ZIPCODE']
-        configuration.card_number = ENV['PARKING_TICKET_CARDNUMBER']
-        configuration.license_plate = ENV['PARKING_TICKET_LICENSEPLATE']
-      end
-    end
-    subject { described_class.new(config) }
+    # let(:username) { ENV['PARKING_TICKET_USERNAME'] }
+    # let(:password) { ENV['PARKING_TICKET_PASSWORD'] }
+    # let(:license_plate) { ENV['PARKING_TICKET_LICENSEPLATE'] }
+    let(:username) { 'fake_username' }
+    let(:password) { 'fake_password' }
+    let(:license_plate) { 'license_plate' }
+
+    let(:zipcode) { '75018' }
+
+    subject { described_class.new(username, password) }
     describe '#class_methods' do
-      context '#current_ticket' do
-        context 'when a relevant ticket is returned' do
-          let(:starts_on) { DateTime.now - 2 * 3600 }
-          let(:ends_on) { DateTime.now + 2 * 3600 }
-          let(:mocked_response) do
-            [
-              {
-                'startTime' => (starts_on).strftime('%Y-%m-%dT%H:%M:%S.%L%z'),
-                'expireTime' => (ends_on).strftime('%Y-%m-%dT%H:%M:%S.%L%z'),
-                'vehicle' => { 'licensePlate' => config.license_plate },
-                'segments' => [{ 'cost' => 1.5 }],
-                'parkingSessionId' => 'a_fake_id'
-              }
-            ]
-          end
-          let(:expected_return) do
-            {
-              starts_on: starts_on,
-              ends_on: ends_on,
-              license_plate: config.license_plate,
-              cost: 1.5,
-              client: 'PayByPhone',
-              client_ticket_id: 'a_fake_id'
-            }
-          end
-          it 'return the current ticket' do
-            request_double = instance_double(
-              Request,
-              tickets: mocked_response,
-              accounts: [{ 'id' => 'a_fake_account_id' }]
-            )
-            allow(Request).to receive(:new).and_return(request_double)
-            result = subject.current_ticket
-            expect(result).to include(expected_return)
-            expect(result.keys).to contain_exactly(*expected_return.keys)
-          end
-        end
-        context 'when no relevant ticket is returned' do
-          let(:starts_on) { DateTime.now - 2 * 3600 }
-          let(:ends_on) { DateTime.now + 2 * 3600 }
-          let(:mocked_response) do
-            [
-              {
-                'startTime' => (starts_on).strftime('%Y-%m-%dT%H:%M:%S.%L%z'),
-                'expireTime' => (ends_on).strftime('%Y-%m-%dT%H:%M:%S.%L%z'),
-                'vehicle' => { 'licensePlate' => 'a not relevant license plate' },
-                'segments' => [{ 'cost' => 1.5 }],
-                'parkingSessionId' => 'a_fake_id'
-              }
-            ]
-          end
-          it 'returns nil' do
-            request_double = instance_double(
-              Request,
-              tickets: mocked_response,
-              accounts: [{ 'id' => 'a_fake_account_id' }]
-            )
-            allow(Request).to receive(:new).and_return(request_double)
-            expect(subject.current_ticket).to eq(nil)
-          end
-        end
-        context 'when no tickets are returned' do
-          let(:starts_on) { DateTime.now - 2 * 3600 }
-          let(:ends_on) { DateTime.now + 2 * 3600 }
-          let(:mocked_response) do
-            []
-          end
-          it 'returns nil' do
-            request_double = instance_double(
-              Request,
-              tickets: mocked_response,
-              accounts: [{ 'id' => 'a_fake_account_id' }]
-            )
-            allow(Request).to receive(:new).and_return(request_double)
-            expect(subject.current_ticket).to eq(nil)
-          end
+      context '#vehicles', :vcr do
+        it 'returns the list of the vehicles' do
+          expect(subject.vehicles).to eq([{
+                                           client_internal_id: 'fake_vehicle_id', license_plate: license_plate, type: 'Car'
+                                         }])
         end
       end
-      context '#renew' do
-        context 'when there is current ticket' do
-          it 'description' do
-            allow(subject).to receive(:current_ticket).and_return([{}])
-            expect(subject).not_to receive(:new_ticket)
-            subject.renew
-          end
+      context '#rate_options' do
+        it 'returns the list of the rate options available', :vcr do
+          expect(subject.rate_options(zipcode, license_plate)).to include({
+                                                                            client_internal_id: instance_of(String),
+                                                                            name: instance_of(String),
+                                                                            type: instance_of(String),
+                                                                            accepted_time_units: instance_of(Array)
+                                                                          })
         end
-        context 'when there is no current ticket' do
-          it 'description' do
-            request_double = instance_double(
-              Request,
-              rate_options: [{ 'type' => 'RES', 'licensePlate' => config.license_plate }],
-              accounts: [{ 'id' => 'test' }],
-              new_quote: {},
-              payment_methods: { 'items' => [{ 'maskedCardNumber' => config.card_number }] }
-            )
-            allow(Request).to receive(:new).and_return(request_double)
-            allow(subject).to receive(:current_ticket).and_return(nil)
-            expect(request_double).to receive(:new_ticket)
-            subject.renew
-          end
+      end
+
+      context '#running_ticket(license_plate, zipcode)' do
+        it 'returns the running ticket', :vcr do
+          expect(subject.rate_options(zipcode,
+                                      license_plate)).to contain_exactly({ accepted_time_units: ['days'],
+                                                                           client_internal_id: '75101',
+                                                                           name: 'Résident',
+                                                                           type: 'RES' },
+                                                                         { accepted_time_units: %w[minutes hours],
+                                                                           client_internal_id: '1085252721',
+                                                                           name: 'Voiture - Visiteur - 75012-75020',
+                                                                           type: 'CUSTOM' })
+        end
+      end
+
+      context '#payment_methods' do
+        it 'returns the payment method registered for the account', :vcr do
+          expect(subject.payment_methods).to contain_exactly({ anonymised_card_number: '2021',
+                                                               client_internal_id: 'fake_payment_method_id',
+                                                               payment_card_type: 'master_card' },
+                                                             { anonymised_card_number: '2358',
+                                                               client_internal_id: 'fake_payment_method_id',
+                                                               payment_card_type: 'visa' },
+                                                             { anonymised_card_number: '4436',
+                                                               client_internal_id: 'fake_payment_method_id',
+                                                               payment_card_type: 'visa' },
+                                                             { anonymised_card_number: '9321',
+                                                               client_internal_id: 'fake_payment_method_id',
+                                                               payment_card_type: 'master_card' },
+                                                             { anonymised_card_number: '6750',
+                                                               client_internal_id: 'fake_payment_method_id',
+                                                               payment_card_type: 'master_card' },
+                                                             { anonymised_card_number: '6156',
+                                                               client_internal_id: 'fake_payment_method_id',
+                                                               payment_card_type: 'visa' })
+        end
+      end
+
+      context '#new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id)' do
+        let(:rate_option_id) { 'a_fake_rate_option_id' }
+        let(:payment_method_id) { 'a_fake_rate_option_id' }
+        it 'request a new ticket', :vcr do
+          client_double = instance_double(
+            ParkingTicket::Clients::PayByPhone::Client,
+            running_tickets: {},
+            payment_methods: { 'items' => [{ 'id' => 'fake_payment_method_id', 'maskedCardNumber' => '2021',
+                                             'paymentCardType' => 'Days' }] },
+            quote: { 'quoteId' => 'faked_quote_id', 'parkingStartTime' => 'fake_start_date',
+                     'parkingExpiryTime' => 'fake_expiry_time' }
+          )
+          allow(ParkingTicket::Clients::PayByPhone::Client).to receive(:new).and_return(client_double)
+          expect(client_double).to receive(:new_ticket).with(
+            'faked_quote_id',
+            'fake_payment_method_id',
+            '75018',
+            'license_plate',
+            1,
+            'Days',
+            'fake_start_date'
+          )
+          subject.new_ticket('license_plate', '75018', '75001', 1, 'days', 'fake_payment_method_id')
         end
       end
     end

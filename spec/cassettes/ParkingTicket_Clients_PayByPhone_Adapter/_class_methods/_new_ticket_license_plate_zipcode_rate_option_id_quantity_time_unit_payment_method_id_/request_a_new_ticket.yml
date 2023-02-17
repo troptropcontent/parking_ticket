@@ -1,0 +1,219 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_username&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 16:19:21 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676650761.637"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.185"
+        X-Time-Iso:
+          - "2023-02-17T16:19:21+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"an_access_token","expires_in":1200,"refresh_token":"A8BK2TGnwr9K5cWmnCqgZHXOnl2EUsXmNWhF40vEmPS","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 16:19:21 GMT
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_username&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 16:19:22 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676650762.265"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.167"
+        X-Time-Iso:
+          - "2023-02-17T16:19:22+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"an_access_token","expires_in":1200,"refresh_token":"E0i6JhK2BtCzjuzv1yxO_zEeadVQwQjp5m62LXcQ2S2","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 16:19:22 GMT
+  - request:
+      method: get
+      uri: https://consumer.paybyphoneapis.com/parking/accounts
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Content-Type:
+          - application/json
+        Authorization:
+          - Bearer an_acces_token
+        User-Agent:
+          - Faraday v2.7.4
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 16:19:22 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "47"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Cache-Control:
+          - private
+        X-Aspnet-Version:
+          - 4.0.30319
+        X-Powered-By:
+          - ASP.NET
+        Strict-Transport-Security:
+          - max-age=31536000
+        X-Request-Start:
+          - "1676650762.986"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.239"
+        X-Time-Iso:
+          - "2023-02-17T16:19:22+00:00"
+      body:
+        encoding: UTF-8
+        string: '[{"id":"account_id"}]'
+    recorded_at: Fri, 17 Feb 2023 16:19:23 GMT
+  - request:
+      method: get
+      uri: https://consumer.paybyphoneapis.com/parking/accounts/account_id/sessions?periodType=Current
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Content-Type:
+          - application/json
+        Authorization:
+          - Bearer an_access_token
+        User-Agent:
+          - Faraday v2.7.4
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 16:19:23 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "692"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Cache-Control:
+          - private
+        X-Aspnet-Version:
+          - 4.0.30319
+        X-Powered-By:
+          - ASP.NET
+        Strict-Transport-Security:
+          - max-age=31536000
+        X-Request-Start:
+          - "1676650763.891"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.350"
+        X-Time-Iso:
+          - "2023-02-17T16:19:23+00:00"
+      body:
+        encoding: UTF-8
+        string: '[{"parkingSessionId":"0971093a-8b22-45a8-95f1-53f33c6e7eb4","locationId":"75018","startTime":"2023-02-17T10:12:14Z","stall":null,"expireTime":"2023-02-18T10:12:14Z","vehicle":{"id":111111,"licensePlate":"license_plate","type":"car","countryCode":"FR","jurisdiction":""},"rateOption":{"rateOptionId":"75101","type":"RES"},"isStoppable":true,"fpsApplies":false,"totalCost":null,"isExtendable":true,"isRenewable":false,"renewableAfter":null,"segments":[{"parkingStart":"2023-02-17T10:12:14Z","parkingEnd":"2023-02-18T10:12:14Z","cost":1.50,"fees":0.0,"chargeableTimeUnitsParked":660,"chargeableTimeUnitType":1,"freeTimeUnitsApplied":0,"freeTimeUnitType":1}],"maxStayState":"MaxStayWithinThreshold"}]'
+    recorded_at: Fri, 17 Feb 2023 16:19:24 GMT
+recorded_with: VCR 6.1.0

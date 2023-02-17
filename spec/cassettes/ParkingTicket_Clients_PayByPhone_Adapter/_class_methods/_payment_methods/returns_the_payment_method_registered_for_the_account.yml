@@ -1,0 +1,159 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_username&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:58:49 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676649529.128"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.274"
+        X-Time-Iso:
+          - "2023-02-17T15:58:49+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"an_access_token","expires_in":1200,"refresh_token":"a_refresh_token","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 15:58:49 GMT
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_username&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:58:49 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676649529.935"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.293"
+        X-Time-Iso:
+          - "2023-02-17T15:58:49+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"an_access_token","expires_in":1200,"refresh_token":"a_refresh_token","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 15:58:49 GMT
+  - request:
+      method: get
+      uri: https://consumer.paybyphoneapis.com/payment/v3/accounts
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Content-Type:
+          - application/json
+        Authorization:
+          - Bearer an_access_token
+        User-Agent:
+          - Faraday v2.7.4
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:58:50 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "2274"
+        Connection:
+          - keep-alive
+        Cache-Control:
+          - private
+        X-Datadog-Trace-Id:
+          - "6583245151576500253"
+        X-Datadog-Parent-Id:
+          - "7960144253056641322"
+        X-Datadog-Sampling-Priority:
+          - "1"
+        Strict-Transport-Security:
+          - max-age=31536000
+      body:
+        encoding: UTF-8
+        string: '{"items":[{"id":"fake_payment_method_id","maskedCardNumber":"111111------2021","paymentCardType":"MasterCard","nameOnCard":"NA","expiryMonth":9,"expiryYear":2025,"startMonth":null,"startYear":null,"issueNumber":null,"billingAddress":{"zipCode":""},"consent":{"consentType":"OnGoing","consentGivenDate":"2023-01-31T08:44:13.090699"},"corporateClientId":null,"scope":"Private"},{"id":"fake_payment_method_id","maskedCardNumber":"111111------2358","paymentCardType":"Visa","nameOnCard":"NA","expiryMonth":11,"expiryYear":2027,"startMonth":null,"startYear":null,"issueNumber":null,"billingAddress":{"zipCode":""},"consent":{"consentType":"OnGoing","consentGivenDate":"2022-11-23T11:27:35.640304"},"corporateClientId":null,"scope":"Private"},{"id":"fake_payment_method_id","maskedCardNumber":"111111------4436","paymentCardType":"Visa","nameOnCard":"NA","expiryMonth":9,"expiryYear":2025,"startMonth":null,"startYear":null,"issueNumber":null,"billingAddress":{"zipCode":""},"consent":{"consentType":"OnGoing","consentGivenDate":"2022-10-25T11:02:37.284899"},"corporateClientId":null,"scope":"Private"},{"id":"fake_payment_method_id","maskedCardNumber":"111111------9321","paymentCardType":"MasterCard","nameOnCard":"NA","expiryMonth":9,"expiryYear":2027,"startMonth":null,"startYear":null,"issueNumber":null,"billingAddress":{"zipCode":""},"consent":{"consentType":"OnGoing","consentGivenDate":"2022-09-19T09:45:08.806714"},"corporateClientId":null,"scope":"Private"},{"id":"fake_payment_method_id","maskedCardNumber":"111111------6750","paymentCardType":"MasterCard","nameOnCard":"NA","expiryMonth":3,"expiryYear":2025,"startMonth":null,"startYear":null,"issueNumber":null,"billingAddress":{"zipCode":""},"consent":{"consentType":"OnGoing","consentGivenDate":"2022-08-23T12:34:46.997957"},"corporateClientId":null,"scope":"Private"},{"id":"fake_payment_method_id","maskedCardNumber":"111111------6156","paymentCardType":"Visa","nameOnCard":"NA","expiryMonth":7,"expiryYear":2025,"startMonth":null,"startYear":null,"issueNumber":null,"billingAddress":{"zipCode":""},"consent":{"consentType":"OnGoing","consentGivenDate":"2022-08-13T10:03:56.161919"},"corporateClientId":null,"scope":"Private"}]}'
+    recorded_at: Fri, 17 Feb 2023 15:58:50 GMT
+recorded_with: VCR 6.1.0

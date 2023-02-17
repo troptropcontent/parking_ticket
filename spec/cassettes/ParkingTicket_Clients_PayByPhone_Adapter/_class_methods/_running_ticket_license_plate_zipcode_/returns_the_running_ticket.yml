@@ -1,0 +1,220 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_sername&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:42:21 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676648541.026"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.273"
+        X-Time-Iso:
+          - "2023-02-17T15:42:21+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"an_access_token","expires_in":1200,"refresh_token":"a_refresh_token","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 15:42:21 GMT
+  - request:
+      method: post
+      uri: https://auth.paybyphoneapis.com/token
+      body:
+        encoding: US-ASCII
+        string: grant_type=password&username=fake_sername&password=fake_password&client_id=paybyphone_web
+      headers:
+        User-Agent:
+          - Faraday v2.7.4
+        Accept:
+          - application/json, text/plain, */*
+        X-Pbp-Clienttype:
+          - WebApp
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:42:21 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1298"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Strict-Transport-Security:
+          - max-age=63072000; includeSubdomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Frame-Options:
+          - ALLOW-FROM https://*.paybyphone.com https://*.cloudfront.net
+        Vary:
+          - Origin
+        Pragma:
+          - no-cache
+        Cache-Control:
+          - no-cache, no-store
+        X-Request-Start:
+          - "1676648541.837"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.271"
+        X-Time-Iso:
+          - "2023-02-17T15:42:21+00:00"
+      body:
+        encoding: UTF-8
+        string: '{"access_token":"an_access_token","expires_in":1200,"refresh_token":"a_refresh_token","scope":"paybyphone","token_type":"Bearer"}'
+    recorded_at: Fri, 17 Feb 2023 15:42:21 GMT
+  - request:
+      method: get
+      uri: https://consumer.paybyphoneapis.com/parking/accounts
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Content-Type:
+          - application/json
+        Authorization:
+          - Bearer an_access_token
+        User-Agent:
+          - Faraday v2.7.4
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:42:22 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "47"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Cache-Control:
+          - private
+        X-Aspnet-Version:
+          - 4.0.30319
+        X-Powered-By:
+          - ASP.NET
+        Strict-Transport-Security:
+          - max-age=31536000
+        X-Request-Start:
+          - "1676648542.557"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "0.238"
+        X-Time-Iso:
+          - "2023-02-17T15:42:22+00:00"
+      body:
+        encoding: UTF-8
+        string: '[{"id":"account_id"}]'
+    recorded_at: Fri, 17 Feb 2023 15:42:22 GMT
+  - request:
+      method: get
+      uri: https://consumer.paybyphoneapis.com/parking/locations/75018/rateOptions?licensePlate=license_plate&parkingAccountId=account_id
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Content-Type:
+          - application/json
+        Authorization:
+          - Bearer an_access_token
+        User-Agent:
+          - Faraday v2.7.4
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Fri, 17 Feb 2023 15:42:24 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "1619"
+        Connection:
+          - keep-alive
+        Server:
+          - nginx/1.20.0
+        Cache-Control:
+          - private
+        X-Aspnet-Version:
+          - 4.0.30319
+        X-Powered-By:
+          - ASP.NET
+        Strict-Transport-Security:
+          - max-age=31536000
+        X-Request-Start:
+          - "1676648544.284"
+        X-Upstream-Response-Time:
+          - "-"
+        X-Request-Time:
+          - "1.267"
+        X-Time-Iso:
+          - "2023-02-17T15:42:24+00:00"
+      body:
+        encoding: ASCII-8BIT
+        string: !binary |-
+          W3sibmFtZSI6IlLDqXNpZGVudCIsInR5cGUiOiJSRVMiLCJyYXRlT3B0aW9uSWQiOiI3NTEwMSIsImVmZmVjdGl2ZU1heFN0YXlEdXJhdGlvbiI6eyJxdWFudGl0eSI6NiwidGltZVVuaXQiOiJEYXlzIn0sIm1heFN0YXlTdGF0dXMiOiJQYXJraW5nQWxsb3dlZCIsInBvbGljeVR5cGUiOiJFbGlnaWJpbGl0eUJhc2VkUG9saWN5IiwibWF4U3RheUVuZFRpbWUiOm51bGwsImFjY2VwdGVkVGltZVVuaXRzIjpbIkRheXMiXSwicmVzdHJpY3Rpb25QZXJpb2RzIjpbeyJzdGFydFRpbWUiOm51bGwsImVuZFRpbWUiOm51bGwsIm1heFN0YXkiOnsicXVhbnRpdHkiOjYsInRpbWVVbml0IjoiRGF5cyJ9fV0sImF2YWlsYWJsZVRpbWVVbml0c1dpdGhSZXN0cmljdGlvbnMiOm51bGwsInRpbWVTdGVwcyI6bnVsbCwiaXNEZWZhdWx0IjpmYWxzZSwiaXNQcmVmZXJyZWQiOnRydWUsImxpY2Vuc2VQbGF0ZSI6IkNMMTkxSkwiLCJhcmVhcyI6WyIxOE0iLCIxOEwiLCIxOEgiLCIxOEciXSwiZnBzIjpudWxsLCJhdmFpbGFibGVQcm9tb3Rpb25zIjpbXSwicmVuZXdhbFBhcmtpbmciOm51bGwsImVsaWdpYmlsaXR5RW5kRGF0ZSI6IjIwMjQtMTAtMjJUMjE6NTk6NTkrMDA6MDAifSx7Im5hbWUiOiJWb2l0dXJlIC0gVmlzaXRldXIgLSA3NTAxMi03NTAyMCIsInR5cGUiOiJDVVNUT00iLCJyYXRlT3B0aW9uSWQiOiIxMDg1MjUyNzIxIiwiZWZmZWN0aXZlTWF4U3RheUR1cmF0aW9uIjp7InF1YW50aXR5IjoxOSwidGltZVVuaXQiOiJIb3VycyJ9LCJtYXhTdGF5U3RhdHVzIjoiUGFya2luZ0FsbG93ZWQiLCJwb2xpY3lUeXBlIjoiRW1pc3Npb25zQmFzZWRQb2xpY3kiLCJtYXhTdGF5RW5kVGltZSI6IjIwMjMtMDItMThUMTA6NDI6MjMrMDA6MDAiLCJhY2NlcHRlZFRpbWVVbml0cyI6WyJNaW51dGVzIiwiSG91cnMiXSwicmVzdHJpY3Rpb25QZXJpb2RzIjpbeyJzdGFydFRpbWUiOiIyMDIzLTAyLTE3VDA5OjAwOjAwKzAxOjAwIiwiZW5kVGltZSI6IjIwMjMtMDItMTdUMjA6MDA6MDArMDE6MDAiLCJtYXhTdGF5Ijp7InF1YW50aXR5IjozNjAsInRpbWVVbml0IjoiTWludXRlcyJ9fSx7InN0YXJ0VGltZSI6IjIwMjMtMDItMThUMDk6MDA6MDArMDE6MDAiLCJlbmRUaW1lIjoiMjAyMy0wMi0xOFQyMDowMDowMCswMTowMCIsIm1heFN0YXkiOnsicXVhbnRpdHkiOjM2MCwidGltZVVuaXQiOiJNaW51dGVzIn19XSwiYXZhaWxhYmxlVGltZVVuaXRzV2l0aFJlc3RyaWN0aW9ucyI6eyJtaW51dGVzIjp7ImR1cmF0aW9uIjp7InF1YW50aXR5IjoxOSwidGltZVVuaXQiOiJIb3VycyJ9LCJlbmRUaW1lIjoiMjAyMy0wMi0xOFQxMTo0MjoyMyswMTowMCJ9LCJob3VycyI6eyJkdXJhdGlvbiI6eyJxdWFudGl0eSI6MTksInRpbWVVbml0IjoiSG91cnMifSwiZW5kVGltZSI6IjIwMjMtMDItMThUMTE6NDI6MjMrMDE6MDAifX0sInRpbWVTdGVwcyI6bnVsbCwiaXNEZWZhdWx0Ijp0cnVlLCJpc1ByZWZlcnJlZCI6ZmFsc2UsImxpY2Vuc2VQbGF0ZSI6IkNMMTkxSkwiLCJhcmVhcyI6bnVsbCwiZnBzIjpudWxsLCJhdmFpbGFibGVQcm9tb3Rpb25zIjpbXSwicmVuZXdhbFBhcmtpbmciOnsiaXNBbGxvd2VkIjpmYWxzZSwid2luZG93IjpudWxsfSwiZWxpZ2liaWxpdHlFbmREYXRlIjpudWxsfV0=
+    recorded_at: Fri, 17 Feb 2023 15:42:24 GMT
+recorded_with: VCR 6.1.0
