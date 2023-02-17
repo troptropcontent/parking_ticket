@@ -4,15 +4,17 @@ require 'parking_ticket/configuration'
 require 'parking_ticket/version'
 
 # PayByPhone wrapper
-require 'client/pay_by_phone/configuration'
-require 'client/pay_by_phone/adapter'
-require 'client/pay_by_phone/request'
+require 'clients/adapter'
+require 'clients/pay_by_phone/configuration'
+require 'clients/pay_by_phone/adapter'
+require 'clients/pay_by_phone/request'
+require 'clients/pay_by_phone/client'
 
 module ParkingTicket
   class Base
     class << self
       def valid_credentials?(adapter_name, username, password)
-        adapter = Client::PayByPhone::Adapter if adapter_name == 'pay_by_phone'
+        adapter = Clients::PayByPhone::Adapter if adapter_name == 'pay_by_phone'
         raise Error, 'EasyPark will be handled in the next major release' if adapter_name == 'easy_park'
         raise Error, "Unhandled adapter : #{adapter_name}" unless adapter
 
@@ -44,24 +46,30 @@ module ParkingTicket
     class Error < StandardError
     end
 
-    def initialize(adapter_name, configuration_attributes)
+    def initialize(adapter_name, username, password)
       @adapter_name = adapter_name
-      @configuration_attributes = configuration_attributes
-      @result = {}
+      @username = username
+      @password = password
     end
 
-    def adapter
-      @adapter ||= load_adapter!
+    def vehicles
+      adapter.vehicles
     end
 
-    def renew
-      adapter.renew unless current_ticket
+    def rate_options(zipcode, license_plate)
+      adapter.rate_options(zipcode, license_plate)
     end
 
-    def current_ticket
-      ticket = adapter.current_ticket
-      ticket = self.class.format_ticket(ticket) if self.class.ticket_format && ticket
-      ticket
+    def running_ticket(license_plate, zipcode)
+      adapter.running_ticket(license_plate, zipcode)
+    end
+
+    def payment_methods
+      adapter.payment_methods
+    end
+
+    def new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id)
+      adapter.new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id)
     end
 
     private
@@ -74,24 +82,15 @@ module ParkingTicket
     end
 
     def prepare_pay_by_phone_adapter!
-      configuration = pay_by_phone_configuration
-      return Client::PayByPhone::Adapter.new(configuration) if configuration.completed?
-
-      raise Error, 'Uncompleted configuration'
-    end
-
-    def pay_by_phone_configuration
-      Client::PayByPhone::Configuration.new do |config|
-        config.username = @configuration_attributes[:username]
-        config.password = @configuration_attributes[:password]
-        config.license_plate = @configuration_attributes[:license_plate]
-        config.zipcode = @configuration_attributes[:zipcode]
-        config.card_number = @configuration_attributes[:card_number]
-      end
+      Clients::PayByPhone::Adapter.new(@username, @password)
     end
 
     def prepare_easy_park_adapter!
       raise Error, 'EasyPark will be handled in the next major release'
+    end
+
+    def adapter
+      @adapter ||= load_adapter!
     end
   end
 end
