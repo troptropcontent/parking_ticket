@@ -5,9 +5,7 @@ require 'parking_ticket/version'
 
 # PayByPhone wrapper
 require 'clients/adapter'
-require 'clients/pay_by_phone/configuration'
 require 'clients/pay_by_phone/adapter'
-require 'clients/pay_by_phone/request'
 require 'clients/pay_by_phone/client'
 
 module ParkingTicket

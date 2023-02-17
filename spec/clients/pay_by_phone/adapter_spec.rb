@@ -1,8 +1,5 @@
 module ParkingTicket::Clients::PayByPhone
   RSpec.describe Adapter do
-    # let(:username) { ENV['PARKING_TICKET_USERNAME'] }
-    # let(:password) { ENV['PARKING_TICKET_PASSWORD'] }
-    # let(:license_plate) { ENV['PARKING_TICKET_LICENSEPLATE'] }
     let(:username) { 'fake_username' }
     let(:password) { 'fake_password' }
     let(:license_plate) { 'license_plate' }
