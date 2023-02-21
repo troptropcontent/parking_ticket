@@ -14,8 +14,6 @@ gem 'vcr', '~> 6.0'
 # Mock web requests in tests
 gem 'webmock', '~> 3.12'
 
-gem 'byebug'
-
 gem 'faraday', '~> 2.7', '>= 2.7.2'
 
 gem 'json_matchers'
