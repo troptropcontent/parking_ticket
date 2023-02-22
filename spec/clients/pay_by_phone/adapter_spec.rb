@@ -63,7 +63,7 @@ module ParkingTicket::Clients::PayByPhone
         end
       end
 
-      context '#new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id)' do
+      context '#new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id:)' do
         let(:rate_option_id) { 'a_fake_rate_option_id' }
         let(:payment_method_id) { 'a_fake_rate_option_id' }
         it 'request a new ticket', :vcr do
@@ -78,15 +78,19 @@ module ParkingTicket::Clients::PayByPhone
           allow(ParkingTicket::Clients::PayByPhone::Client).to receive(:new).and_return(client_double)
           expect(client_double).to receive(:new_ticket).with(
             'faked_quote_id',
-            'fake_payment_method_id',
             '75018',
             'license_plate',
             1,
             'Days',
-            'fake_start_date'
+            'fake_start_date',
+            payment_method_id: 'fake_payment_method_id'
           )
-          subject.new_ticket('license_plate', '75018', '75001', 1, 'days', 'fake_payment_method_id')
+          subject.new_ticket('license_plate', '75018', '75001', 1, 'days', payment_method_id: 'fake_payment_method_id')
         end
+      end
+
+      context '#quote(rate_option_id, zipcode, license_plate, quantity, time_unit)' do
+        it 'returns a qote correctly'
       end
     end
   end

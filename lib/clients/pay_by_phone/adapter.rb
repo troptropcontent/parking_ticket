@@ -54,20 +54,17 @@ module ParkingTicket
           end.first
         end
 
-        def request_new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id)
+        def request_new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id:)
           mapped_time_unit = ACCEPTED_TIME_UNIT_MAPPER.key(time_unit)
-          payment_method = fetch_and_map_payment_methods.find do |payment_method|
-            payment_method[:client_internal_id] == payment_method_id
-          end
           quote = fetch_and_map_quote(rate_option_id, zipcode, license_plate, quantity, mapped_time_unit)
           client.new_ticket(
             quote[:client_internal_id],
-            payment_method[:client_internal_id],
             zipcode,
             license_plate,
             quantity,
             mapped_time_unit,
-            quote[:starts_on]
+            quote[:starts_on],
+            payment_method_id: payment_method_id
           )
         end
 
@@ -82,11 +79,14 @@ module ParkingTicket
         end
 
         def fetch_and_map_quote(rate_option_id, zipcode, license_plate, quantity, time_unit)
-          fetched_quote = client.quote(rate_option_id, zipcode, license_plate, quantity, time_unit)
+          mapped_time_unit = ACCEPTED_TIME_UNIT_MAPPER.key(time_unit)
+          fetched_quote = client.quote(rate_option_id, zipcode, license_plate, quantity, mapped_time_unit)
+
           {
             client_internal_id: fetched_quote['quoteId'],
             starts_on: fetched_quote['parkingStartTime'],
-            ends_on: fetched_quote['parkingExpiryTime']
+            ends_on: fetched_quote['parkingExpiryTime'],
+            cost: fetched_quote.dig('totalCost', 'amount')
           }
         end
       end

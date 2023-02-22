@@ -70,6 +70,10 @@ module ParkingTicket
       adapter.new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id)
     end
 
+    def quote(rate_option_id, zipcode, license_plate, quantity, time_unit)
+      adapter.quote(rate_option_id, zipcode, license_plate, quantity, time_unit)
+    end
+
     private
 
     def load_adapter!

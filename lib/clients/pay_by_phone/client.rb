@@ -58,38 +58,45 @@ module ParkingTicket
             ).body
           end
 
-          def new_ticket(token, account_id, quote_id, payment_method_id, zipcode, license_plate, quantity, time_unit, start_time)
-            connection(token).post(
-              "/parking/accounts/#{account_id}/sessions/",
-              {
-                "expireTime": nil,
-                "duration": {
-                  "quantity": quantity,
-                  "timeUnit": time_unit
-                },
-                "licensePlate": license_plate,
-                "locationId": zipcode,
-                "rateOptionId": '75101',
-                "startTime": start_time,
-                "quoteId": quote_id,
-                "parkingAccountId": account_id,
-                "paymentMethod": {
-                  "paymentMethodType": 'PaymentAccount',
-                  "payload": {
-                    "paymentAccountId": payment_method_id,
-                    "clientBrowserDetails": {
-                      "browserAcceptHeader": 'text/html',
-                      "browserColorDepth": '30',
-                      "browserJavaEnabled": 'false',
-                      "browserLanguage": 'fr-FR',
-                      "browserScreenHeight": '900',
-                      "browserScreenWidth": '1440',
-                      "browserTimeZone": '-60',
-                      "browserUserAgent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
-                    }
+          def new_ticket(token, account_id, quote_id, zipcode, license_plate, quantity, time_unit, start_time, payment_method_id:)
+            base_data = {
+              "expireTime": nil,
+              "duration": {
+                "quantity": quantity,
+                "timeUnit": time_unit
+              },
+              "licensePlate": license_plate,
+              "locationId": zipcode,
+              "rateOptionId": '75101',
+              "startTime": start_time,
+              "quoteId": quote_id,
+              "parkingAccountId": account_id
+            }
+
+            payment_data = {
+              "paymentMethod": {
+                "paymentMethodType": 'PaymentAccount',
+                "payload": {
+                  "paymentAccountId": payment_method_id,
+                  "clientBrowserDetails": {
+                    "browserAcceptHeader": 'text/html',
+                    "browserColorDepth": '30',
+                    "browserJavaEnabled": 'false',
+                    "browserLanguage": 'fr-FR',
+                    "browserScreenHeight": '900',
+                    "browserScreenWidth": '1440',
+                    "browserTimeZone": '-60',
+                    "browserUserAgent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
                   }
                 }
-              }.to_json
+              }
+            }
+
+            final_data = payment_method_id ? base_data.merge(payment_data) : base_data
+
+            connection(token).post(
+              "/parking/accounts/#{account_id}/sessions/",
+              final_data.to_json
             ).body
           end
 
@@ -137,9 +144,9 @@ module ParkingTicket
           self.class.quote(token, account_id, rate_option_id, zipcode, license_plate, quantity, time_unit)
         end
 
-        def new_ticket(quote_id, payment_method_id, zipcode, license_plate, quantity, time_unit, start_time)
-          self.class.new_ticket(token, account_id, quote_id, payment_method_id, zipcode, license_plate, quantity,
-                                time_unit, start_time)
+        def new_ticket(quote_id, zipcode, license_plate, quantity, time_unit, start_time, payment_method_id:)
+          self.class.new_ticket(token, account_id, quote_id, zipcode, license_plate, quantity,
+                                time_unit, start_time, payment_method_id)
         end
 
         private
