@@ -91,7 +91,7 @@ module ParkingTicket
                 }
               }
             }
-            byebug
+
             final_data = payment_method_id ? base_data.merge(payment_data) : base_data
 
             connection(token).post(
