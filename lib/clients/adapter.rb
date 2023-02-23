@@ -43,12 +43,18 @@ module ParkingTicket
         fetch_and_map_quote(rate_option_id, zipcode, license_plate, quantity, time_unit)
       end
 
-      def new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id:)
+      def new_ticket(license_plate:, zipcode:, rate_option_client_internal_id:, quantity:, time_unit:, payment_method_id:)
         raise_invalid_credentials! unless valid_credentials?
-        return if running_ticket(license_plate, zipcode)
+        # return if running_ticket(license_plate, zipcode)
 
-        request_new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit,
-                           payment_method_id: payment_method_id)
+        request_new_ticket(
+          license_plate: license_plate,
+          zipcode: zipcode,
+          rate_option_client_internal_id: rate_option_client_internal_id,
+          quantity: quantity,
+          time_unit: time_unit,
+          payment_method_id: payment_method_id
+        )
       end
 
       private

@@ -77,15 +77,17 @@ module ParkingTicket::Clients::PayByPhone
           )
           allow(ParkingTicket::Clients::PayByPhone::Client).to receive(:new).and_return(client_double)
           expect(client_double).to receive(:new_ticket).with(
-            'faked_quote_id',
-            '75018',
-            'license_plate',
-            1,
-            'Days',
-            'fake_start_date',
+            zipcode: '75018',
+            license_plate: 'license_plate',
+            rate_option_client_internal_id: 'a_fake_rate_option_id',
+            quantity: 1,
+            time_unit: 'Days',
+            quote_client_internal_id: 'faked_quote_id',
+            starts_on: 'fake_start_date',
             payment_method_id: 'fake_payment_method_id'
           )
-          subject.new_ticket('license_plate', '75018', '75001', 1, 'days', payment_method_id: 'fake_payment_method_id')
+          subject.new_ticket(license_plate: 'license_plate', zipcode: '75018', rate_option_client_internal_id: 'a_fake_rate_option_id',
+                             quantity: 1, time_unit: 'days', payment_method_id: 'fake_payment_method_id')
         end
       end
 

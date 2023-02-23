@@ -54,16 +54,20 @@ module ParkingTicket
           end.first
         end
 
-        def request_new_ticket(license_plate, zipcode, rate_option_id, quantity, time_unit, payment_method_id:)
+        def request_new_ticket(license_plate:, zipcode:, rate_option_client_internal_id:, quantity:, time_unit:, payment_method_id:)
           mapped_time_unit = ACCEPTED_TIME_UNIT_MAPPER.key(time_unit)
-          quote = fetch_and_map_quote(rate_option_id, zipcode, license_plate, quantity, mapped_time_unit)
+
+          quote = fetch_and_map_quote(rate_option_client_internal_id, zipcode, license_plate, quantity,
+                                      time_unit)
+
           client.new_ticket(
-            quote[:client_internal_id],
-            zipcode,
-            license_plate,
-            quantity,
-            mapped_time_unit,
-            quote[:starts_on],
+            license_plate: license_plate,
+            zipcode: zipcode,
+            rate_option_client_internal_id: rate_option_client_internal_id,
+            quantity: quantity,
+            time_unit: mapped_time_unit,
+            quote_client_internal_id: quote[:client_internal_id],
+            starts_on: quote[:starts_on],
             payment_method_id: payment_method_id
           )
         end

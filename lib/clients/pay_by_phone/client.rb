@@ -58,18 +58,18 @@ module ParkingTicket
             ).body
           end
 
-          def new_ticket(token, account_id, quote_id, zipcode, license_plate, quantity, time_unit, start_time, payment_method_id:)
+          def new_ticket(token, account_id, license_plate:, zipcode:, rate_option_client_internal_id:, quantity:, time_unit:, quote_client_internal_id:, starts_on:, payment_method_id:)
             base_data = {
               "expireTime": nil,
               "duration": {
-                "quantity": quantity,
+                "quantity": quantity.to_s,
                 "timeUnit": time_unit
               },
               "licensePlate": license_plate,
               "locationId": zipcode,
-              "rateOptionId": '75101',
-              "startTime": start_time,
-              "quoteId": quote_id,
+              "rateOptionId": rate_option_client_internal_id,
+              "startTime": starts_on,
+              "quoteId": quote_client_internal_id,
               "parkingAccountId": account_id
             }
 
@@ -91,7 +91,7 @@ module ParkingTicket
                 }
               }
             }
-
+            byebug
             final_data = payment_method_id ? base_data.merge(payment_data) : base_data
 
             connection(token).post(
@@ -144,9 +144,16 @@ module ParkingTicket
           self.class.quote(token, account_id, rate_option_id, zipcode, license_plate, quantity, time_unit)
         end
 
-        def new_ticket(quote_id, zipcode, license_plate, quantity, time_unit, start_time, payment_method_id:)
-          self.class.new_ticket(token, account_id, quote_id, zipcode, license_plate, quantity,
-                                time_unit, start_time, payment_method_id)
+        def new_ticket(license_plate:, zipcode:, rate_option_client_internal_id:, quantity:, time_unit:, quote_client_internal_id:, starts_on:, payment_method_id:)
+          self.class.new_ticket(token, account_id,
+                                license_plate: license_plate,
+                                zipcode: zipcode,
+                                rate_option_client_internal_id: rate_option_client_internal_id,
+                                quantity: quantity,
+                                time_unit: time_unit,
+                                quote_client_internal_id: quote_client_internal_id,
+                                starts_on: starts_on,
+                                payment_method_id: payment_method_id)
         end
 
         private
