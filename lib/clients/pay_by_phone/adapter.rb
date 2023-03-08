@@ -13,6 +13,11 @@ module ParkingTicket
           'Visa' => 'visa'
         }.freeze
 
+        VEHICLE_TYPE_MAPPER = {
+          'Car' => 'combustion_car',
+          'ElectricMotorcycle' => 'electric_motorcycle'
+        }.freeze
+
         private
 
         def fetch_and_map_vehicles
@@ -20,7 +25,8 @@ module ParkingTicket
             {
               client_internal_id: vehicle['vehicleId'],
               license_plate: vehicle['licensePlate'],
-              type: vehicle['type']
+              vehicle_type: VEHICLE_TYPE_MAPPER[vehicle['type']],
+              vehicle_description: vehicle.dig("profile", "description"),
             }
           end
         end
@@ -97,3 +103,4 @@ module ParkingTicket
     end
   end
 end
+
